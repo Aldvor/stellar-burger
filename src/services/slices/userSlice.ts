@@ -19,15 +19,13 @@ export const checkUserAuth = createAsyncThunk(
   'user/checkAuth',
   async (_, { dispatch }): Promise<void> => {
     if (getCookie('accessToken')) {
-      try {
-        const response = await getUserApi();
-        dispatch(setUser(response.user));
-      } catch (error) {
-        localStorage.removeItem('refreshToken');
-        deleteCookie('accessToken');
-      } finally {
-        dispatch(authCheck());
-      }
+      getUserApi()
+        .then((res) => dispatch(setUser(res.user)))
+        .catch((): void => {
+          localStorage.removeItem('refreshToken');
+          deleteCookie('accessToken');
+        })
+        .finally(() => dispatch(authCheck()));
     } else {
       dispatch(authCheck());
     }

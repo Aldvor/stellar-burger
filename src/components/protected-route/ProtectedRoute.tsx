@@ -1,8 +1,8 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import { useSelector } from '../../services/store';
 import { Navigate } from 'react-router';
-import { Preloader } from '../ui/preloader';
 import { TProtectedRouteProps } from './type';
+import { Login } from '@pages';
 
 export const ProtectedRoute = ({
   children,
@@ -13,7 +13,7 @@ export const ProtectedRoute = ({
   const location = useLocation();
 
   if (!isAuthChecked) {
-    return <Preloader />;
+    return <Login />;
   }
 
   if (!onlyUnAuth && !user) {

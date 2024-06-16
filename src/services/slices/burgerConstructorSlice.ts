@@ -58,11 +58,11 @@ const burgerConstructorSlice = createSlice({
       const quantities: { [key: string]: number } = {};
       const { bun, ingredients } = state;
       if (bun) {
-        quantities[bun.id] = (quantities[bun.id] || 0) + 2;
+        quantities[bun._id] = (quantities[bun._id] || 0) + 2;
       }
 
       ingredients.forEach((ingredient) => {
-        quantities[ingredient.id] = (quantities[ingredient.id] || 0) + 1;
+        quantities[ingredient._id] = (quantities[ingredient._id] || 0) + 1;
       });
 
       return quantities;
