@@ -1,4 +1,4 @@
-import { useMemo, useCallback, FC } from 'react';
+import { FC, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
@@ -13,8 +13,7 @@ export const BurgerConstructor: FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.userData.isAuthChecked);
-
+  const userIsAuth = useSelector((state) => state.userData.isAuthChecked);
   const constructorItems = useSelector((state) => state.burgerConstructor);
   const { orderRequest, order } = useSelector((state) => state.newOrder);
 
@@ -30,9 +29,8 @@ export const BurgerConstructor: FC = () => {
   );
 
   const onOrderClick = useCallback(() => {
-    if (!user) {
+    if (!userIsAuth) {
       navigate('/login');
-      return;
     }
 
     if (constructorItems.bun && constructorItems.ingredients.length > 0) {
@@ -43,7 +41,7 @@ export const BurgerConstructor: FC = () => {
       ];
       dispatch(newBurgerOrder(dataToOrder));
     }
-  }, [user, constructorItems, dispatch, navigate]);
+  }, [userIsAuth, constructorItems, dispatch, navigate]);
 
   const closeOrderModal = () => {
     dispatch(clearOrder());
