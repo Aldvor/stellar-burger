@@ -52,7 +52,7 @@ const UserSlice = createSlice({
       state.user = action.payload;
     },
     authCheck: (state) => {
-      state.isAuthChecked = false;
+      state.isAuthChecked = true;
     }
   },
   selectors: {
